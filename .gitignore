@@ -1,0 +1,6 @@
+.classpath
+.env
+target/
+.project
+.settings/
+temp/
