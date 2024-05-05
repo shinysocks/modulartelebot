@@ -1,7 +1,9 @@
 package modulartelebot.botmodules;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -34,7 +36,7 @@ public class Pirate extends BotModule {
             }
         }
 
-        File subTempDir = new File("./temp/pirate", query);
+        File subTempDir = new File("./temp/pirate", query.replace("/", "-"));
 
         // download
         try {
@@ -45,16 +47,17 @@ public class Pirate extends BotModule {
             return;
         }
 
-        // send song;
+        // send songs;
         for (File f : subTempDir.listFiles()) {
             send(new SendDocument(chatId, new InputFile(f)));
-            f.delete();
         }
-        subTempDir.delete();
+        try {
+            FileUtils.deleteDirectory(subTempDir);
+        } catch (IOException e) {
+        }
     }
 
     private void download(String query, File dir) throws Exception {
-        // TODO fix url directories and albums
         String spotdl = String.format("./temp/py_venv/bin/spotdl download '%s' --format mp3 --output '%s'", query, dir);
         run(spotdl);
     }
