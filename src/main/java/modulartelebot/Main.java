@@ -2,9 +2,7 @@ package modulartelebot;
 
 import java.io.File;
 import java.util.Arrays;
-
 import modulartelebot.botmodules.Pirate;
-import modulartelebot.botmodules.YTDL;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +10,6 @@ public class Main {
             new File("./temp").mkdir();
         Bot bot = new Bot("gourpbot", getToken("TELEGRAM_TOKEN"));
         new Pirate(bot);
-        new YTDL(bot);
         // add more bots here
 
     }
