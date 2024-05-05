@@ -1,10 +1,7 @@
-FROM maven:3-eclipse-temurin-17-alpine
+FROM maven:3-eclipse-temurin-21-alpine
 WORKDIR /modulartelebot
 COPY . .
-
-# clean up
 RUN mvn clean compile
-RUN rm -rf temp
 
 # add python :[
 ENV PYTHONUNBUFFERED=1
